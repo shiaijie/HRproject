@@ -1,0 +1,66 @@
+<!--
+<nz-col [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+  <nz-form-item nz-row class="form-item-search">
+    <nz-form-label nz-col [nzXl]="6" [nzLg]="6" [nzMd]="6" [nzSm]="24" [nzXs]="24">姓名
+    </nz-form-label>
+    <nz-form-control nz-col [nzXl]="18" [nzLg]="18" [nzMd]="18" [nzSm]="24" [nzXs]="24">
+      <input nz-input [(ngModel)]="nameModel" (ngModelChange)="selectName()"
+             placeholder="请输入姓名" nzSize="'default'">
+    </nz-form-control>
+  </nz-form-item>
+</nz-col>
+
+<nz-col [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+  <nz-form-item nz-row class="form-item-search">
+    <nz-form-label nz-col [nzXl]="6" [nzLg]="6" [nzMd]="6" [nzSm]="24" [nzXs]="24">工号
+    </nz-form-label>
+    <nz-form-control nz-col [nzXl]="18" [nzLg]="18" [nzMd]="18" [nzSm]="24" [nzXs]="24">
+      <input nz-input [(ngModel)]="jobCodeModel" (ngModelChange)="selectJobCode()"
+             placeholder="请输入工号" nzSize="'default'">
+    </nz-form-control>
+  </nz-form-item>
+</nz-col>
+
+<nz-col [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24" >
+  <nz-form-item nz-row class="form-item-search">
+    <nz-form-label nz-col [nzXl]="6" [nzLg]="6" [nzMd]="6" [nzSm]="24" [nzXs]="24">部门
+    </nz-form-label>
+    <nz-form-control nz-col [nzXl]="18" [nzLg]="18" [nzMd]="18" [nzSm]="24" [nzXs]="24">
+      &lt;!&ndash;<department-tree-select [(myModel)]="departModel"  [multiple]="true" (myModelChange)="selectDepart($event)"
+                              [size]="'default'"></department-tree-select>&ndash;&gt;
+    </nz-form-control>
+  </nz-form-item>
+</nz-col>
+
+<nz-col  [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+  <nz-form-item nz-row class="form-item-search">
+    <nz-form-label nz-col [nzXl]="6" [nzLg]="6" [nzMd]="6" [nzSm]="24" [nzXs]="24">职位
+    </nz-form-label>
+    <nz-form-control nz-col [nzXl]="18" [nzLg]="18" [nzMd]="18" [nzSm]="24" [nzXs]="24">
+      <nz-select [hidden]="!multipleDepart" (ngModelChange)="selectPost($event)" nzMode="multiple"
+                 [(ngModel)]="postModel"
+                 nzPlaceHolder="请选择职位" nzSize="'default'"
+                 nzAllowClear>
+        <nz-option *ngFor="let opt of postOptions; let idx = index" [nzLabel]="opt.depart + '  -  ' + opt.name" [nzValue]="opt.id">
+        </nz-option>
+      </nz-select>
+      <post-tree-select [hidden]="multipleDepart" [multiple]="true" (myModelChange)="selectPost($event)" [(myModel)]="postModel" [size]="'default'" #postTree></post-tree-select>
+    </nz-form-control>
+  </nz-form-item>
+</nz-col>
+
+<nz-col [nzXl]="8" [nzLg]="12" [nzMd]="12" [nzSm]="24" [nzXs]="24">
+  <nz-form-item nz-row class="form-item-search">
+    <nz-form-label nz-col [nzXl]="6" [nzLg]="6" [nzMd]="6" [nzSm]="24" [nzXs]="24">岗位
+    </nz-form-label>
+    <nz-form-control nz-col [nzXl]="18" [nzLg]="18" [nzMd]="18" [nzSm]="24" [nzXs]="24">
+      <nz-select nzMode="multiple" [(ngModel)]="dutyModel" (ngModelChange)="selectDuty()"
+                 nzPlaceHolder="请选择岗位" nzSize="'default'"
+                 nzAllowClear>
+        <nz-option *ngFor="let opt of dutyOptions; let idx = index" [nzLabel]="opt.name" [nzValue]="opt.id">
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</nz-col>
+-->

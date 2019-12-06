@@ -1,0 +1,150 @@
+<br />
+<br />
+<div nz-row nzGutter="16">
+  <!--简单输入框-->
+  <div nz-col nzSpan="10" [nzOffset]="5">
+    <nz-input-group nzSearch [nzAddOnAfter]="searchButton">
+      <input
+        type="text"
+        nz-input
+        [(ngModel)]="simpleSearchStr"
+        placeholder="请输入姓名或工号"
+        nzWidth="150px"
+      />
+    </nz-input-group>
+    <ng-template #searchButton>
+      <button nz-button nzType="primary" nzSearch (click)="simpleSearch()">
+        <i nz-icon nzType="search"></i>
+      </button>
+    </ng-template>
+  </div>
+
+  <!--高级搜索框内容-->
+  <ng-template #contentTemplate>
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="name">姓名</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="name">
+        </nz-form-control>
+      </nz-form-item >
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="jobCode">工号</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <input nz-input name="jobCode">
+        </nz-form-control>
+      </nz-form-item >
+      <nz-select [(ngModel)]="selectedDepart" (ngModelChange)="departChange($event)">
+        <nz-option *ngFor="let depart of departData" [nzValue]="depart" [nzLabel]="depart"></nz-option>
+      </nz-select>
+      <nz-select [(ngModel)]="selectedPost" (ngModelChange)="postChange($event)">
+        <nz-option *ngFor="let post of postData[selectedDepart]" [nzValue]="post" [nzLabel]="post"></nz-option>
+      </nz-select>
+      <nz-select [(ngModel)]="selectedDuty">
+        <nz-option *ngFor="let duty of dutyData[selectedPost]" [nzValue]="duty" [nzLabel]="duty"></nz-option>
+      </nz-select>
+    </form>
+
+    <div>
+      <button nz-button >
+        取消
+      </button>
+      <button nz-button >
+        重置
+      </button>
+      <button nz-button >
+        检索
+      </button>
+    </div>
+  </ng-template>
+  <!--高级搜索按钮-->
+  <div nz-col nzSpan="4">
+    <button nz-button nz-popover
+            nzPopoverTitle="高级搜索框"
+            [nzPopoverContent]="contentTemplate"
+            nzPopoverTrigger="click"
+    >
+      高级搜索
+    </button>
+  </div>
+
+  <div nz-col nzSpan="4">
+    <button nz-button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+      更多操作
+      <i nz-icon nzType="down"></i>
+    </button>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>添加人员</li>
+        <li nz-menu-item>导入人员</li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>
+
+<br />
+<br />
+
+<!--表格-->
+<nz-table
+    #basicTable
+    nzBordered
+    [nzScroll]="{ x: '1000px', y: '1000px' }"
+    [nzData]="listOfData"
+    nzShowSizeChanger
+    [nzFrontPagination]="false"
+    [nzLoading]="loading"
+    [nzTotal]="total"
+    [(nzPageIndex)]="pageIndex"
+    [(nzPageSize)]="pageSize"
+    (nzPageIndexChange)="searchData()"
+    (nzPageSizeChange)="searchData(true)"
+>
+  <thead>
+  <tr>
+    <th nzWidth="50px">序号</th>
+    <th nzWidth="150px" nzLeft="0px" nzShowSort nzSortKey="name">姓名</th>
+    <th nzWidth="100px" nzLeft="150px" nzShowSort nzSortKey="jobCode">工号</th>
+    <th nzWidth="100px"
+        nzShowFilter
+        [nzFilters]="filterGender"
+        (nzFilterChange)="updateFilter($event)"
+    >
+      性别
+    </th>
+    <th nzWidth="100px" nzShowSort nzSortKey="age">年龄</th>
+    <th nzWidth="100px">部门</th>
+    <th nzWidth="100px">岗位</th>
+    <th nzWidth="100px">职位</th>
+    <th nzWidth="100px">现居住地</th>
+    <th nzWidth="100px">操作</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data; index as i;">
+    <td nzWidth="50px" nzLeft="0px">{{ i }}</td>
+    <td nzWidth="150px" nzLeft="50px">{{ data.name }}</td>
+    <td nzWidth="100px" nzLeft="200px">{{ data.jobCode }}</td>
+    <td nzWidth="100px">{{ data.sex }}</td>
+    <td nzWidth="100px">{{ data.age }}</td>
+    <td nzWidth="100px">{{ data.depart }}</td>
+    <td nzWidth="100px">{{ data.post }}</td>
+    <td nzWidth="100px">{{ data.duty }}</td>
+    <td nzWidth="100px">{{ data.address }}</td>
+    <td nzWidth="100px">
+      <!--查看详情按钮-->
+      <button nz-button>
+        <i nz-icon nzType="user" nzTheme="outline"></i>
+      </button>
+      <!--编辑按钮-->
+      <button nz-button>
+        <i nz-icon nzType="edit" nzTheme="outline"></i>
+      </button>
+      <!--删除（离职）按钮-->
+      <button nz-button>
+        <i nz-icon nzType="delete" nzTheme="fill"></i>
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>
